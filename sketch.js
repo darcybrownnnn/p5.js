@@ -1,8 +1,10 @@
+let beat;
+
 function setup() {
   // Creates a canvas 560 pixels wide
    // and 360 pixels high.
   createCanvas(560, 360);
-  
+  beat = loadSound('beat.mp3');
 }
 function draw() {
 //sky blue background
