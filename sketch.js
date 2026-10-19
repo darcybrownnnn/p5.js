@@ -1,64 +1,41 @@
 let beat;
+let analyzer;
 
-function setup() {
-  // Creates a canvas 560 pixels wide
-   // and 360 pixels high.
-  createCanvas(560, 360);
+function preload() {
   beat = loadSound('beat.mp3');
 }
-function draw() {
-//sky blue background
-  background(135, 206, 235);
-}
 
 function setup() {
-  //creates a canvas 600 pixels wide
-  //and 400 pixels high
-  createCanvas(600, 400);
+  let myCanvas = createCanvas(600, 400);
+  // Only keep this line if your page has an element with id="myContainer"
+  // myCanvas.parent('myContainer');
+
+  analyzer = new p5.Amplitude();
+  analyzer.setInput(beat);
 }
+
 function draw() {
-  //sky blue background
+  // sky blue background
   background(135, 206, 235);
-  //sun in top-right corner
+
+  // sun in top right
+  fill("purple");
+  stroke("pink");
+  strokeWeight(20);
   circle(550, 50, 100);
-}
-function setup() {
-  // Creates a canvas 600 pixels wide
-  // and 400 pixels high.
-  createCanvas(600, 400);
-}
-function draw() {
-  //sky blue background
-  background(135, 206, 235);
-  //sun in top right
-  fill("purple"); //purple
 
-  stroke("pink"); //pink outline 
-
-  strokeWeight(20); //large outline    
-
-  circle(550, 50, 100);
+  // circle that pulses with the music's volume
+  let rms = analyzer.getLevel();
+  fill(127);
+  stroke(0);
+  strokeWeight(1);
+  ellipse(width / 2, height / 2, 10 + rms * 200, 10 + rms * 200);
 }
+
 function mousePressed() {
-if (beat.isPlaying()) {
-beat.stop();
-} else {
-  function setup() {
-let myCanvas = createCanvas(600, 400);
-myCanvas.parent('myContainer');
-analyzer = new p5.Amplitude();
-analyzer.setInput(beat);
-}
-  unction draw() {
-// Get the average (root mean square) amplitude
-let rms = 0
-if (analyzer.getLevel()){
-rms = analyzer.getLevel();
-}
-fill(127);
-stroke(0);
-// Draw an ellipse with size based on volume
-ellipse(width / 2, height / 2, 10 + rms * 200, 10 + rms * 200)
-beat.loop();
-}
+  if (beat.isPlaying()) {
+    beat.stop();
+  } else {
+    beat.loop();
+  }
 }
