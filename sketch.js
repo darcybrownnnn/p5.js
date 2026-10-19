@@ -37,3 +37,10 @@ function draw() {
 
   circle(550, 50, 100);
 }
+function mousePressed() {
+if (beat.isPlaying()) {
+beat.stop();
+} else {
+beat.loop();
+}
+}
